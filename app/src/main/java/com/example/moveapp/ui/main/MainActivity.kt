@@ -45,28 +45,5 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-  /*  private fun setupObservers(page:Int) {
-        viewModel.getPopular(page).observe(this, {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        resource.data?.let {
-                            progress_bar.visibility= View.GONE
 
-                        }
-                    }
-                    Status.ERROR -> {
-                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                    }
-                    Status.LOADING -> {
-                        progress_bar.visibility= View.VISIBLE
-
-
-
-                    }
-                }
-            }
-        })
-    }
-*/
 }
