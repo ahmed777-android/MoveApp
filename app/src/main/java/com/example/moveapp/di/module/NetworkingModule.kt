@@ -1,8 +1,10 @@
 package com.example.moveapp.di.module
 
+import android.app.Activity
 import com.example.moveapp.Api_Key
 import com.example.moveapp.BASE_URL
 import com.example.moveapp.networking.MovieApi
+import com.example.moveapp.uti.ImageLoader
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -41,28 +43,32 @@ class NetworkingModule {
             .addInterceptor(interceptor)
             .build()
     }
+
     @Singleton
     @Provides
-    fun provideMoshi():Moshi{
+    fun provideMoshi(): Moshi {
         return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
     }
 
 
-        @Singleton
-        @Provides
-        fun getRetrofit(moshi: Moshi, okHttpClient: OkHttpClient): Retrofit {
-            return Retrofit.Builder()
-                .client(okHttpClient )
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .baseUrl(BASE_URL)
-                .build()
-
-        }
-
-        @Provides
-        @Singleton
-        fun getApiCallInterface(retrofit: Retrofit): MovieApi =
-            retrofit.create(MovieApi::class.java)
+    @Singleton
+    @Provides
+    fun getRetrofit(moshi: Moshi, okHttpClient: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
+            .client(okHttpClient)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl(BASE_URL)
+            .build()
 
     }
+
+    @Provides
+    @Singleton
+    fun getApiCallInterface(retrofit: Retrofit): MovieApi =
+        retrofit.create(MovieApi::class.java)
+
+
+
+
+}

@@ -6,7 +6,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-class ImageLoader(var mActivity: Activity) {
+class ImageLoader(private var mActivity: Activity) {
 
     private var mDefaultRequestOptions: RequestOptions = RequestOptions().centerCrop()
 

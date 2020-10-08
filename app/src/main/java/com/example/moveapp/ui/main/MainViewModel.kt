@@ -1,25 +1,20 @@
 package com.example.moveapp.ui.main
 
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.example.moveapp.networking.data.Movie
+import androidx.paging.*
 import com.example.moveapp.networking.data.MovieRepository
-import com.example.moveapp.uti.Resource
-import kotlinx.coroutines.Dispatchers
-import okhttp3.Dispatcher
-import java.lang.Exception
+import com.example.moveapp.ui.adapter.MoviesDataSource
 import javax.inject.Inject
+import androidx.lifecycle.viewModelScope
 
-class MainViewModel @Inject constructor( private val repository: MovieRepository) : ViewModel()  {
-      fun getPopular()=liveData(Dispatchers.IO){
-          emit(Resource.loading(data = null ))
-          try {
-              emit(Resource.success(data = repository.getPopularRepo()))
-          }catch (e:Exception ){
-              emit(Resource.error(data = null,message = e.message?:"Error Occurred!"))
-          }
-      }
+
+class MainViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
+
+    val flow = Pager(PagingConfig(pageSize = 20, enablePlaceholders = false))
+    { MoviesDataSource(repository) }.flow.cachedIn(viewModelScope)
+
+
+
 
 }
