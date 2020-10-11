@@ -3,8 +3,6 @@ package com.example.moveapp.ui.adapter
 import androidx.paging.PagingSource
 import com.example.moveapp.networking.data.Movie
 import com.example.moveapp.networking.data.MovieRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.cancel
 
 class MoviesDataSource( private val repository: MovieRepository) : PagingSource<Int, Movie>() {
 

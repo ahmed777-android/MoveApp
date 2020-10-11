@@ -99,5 +99,8 @@ dependencies {
     def paging_version = "3.0.0-alpha07"
     implementation "androidx.paging:paging-runtime:$paging_version"
 
+    implementation  'com.fxn769:bubbletabbar:1.0.5'
+
+
 
 }

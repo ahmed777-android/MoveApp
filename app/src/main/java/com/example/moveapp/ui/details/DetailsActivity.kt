@@ -2,18 +2,147 @@ package com.example.moveapp.ui.details
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.moveapp.MyApplication
 import com.example.moveapp.R
-import com.example.moveapp.ui.ViewModelFactory
+import com.example.moveapp.networking.data.Cast
+import com.example.moveapp.networking.data.Movie
+import com.example.moveapp.networking.data.Reviews
+import com.example.moveapp.ui.adapter.CastAdapter
+import com.example.moveapp.uti.Status
+import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
 class DetailsActivity : AppCompatActivity() {
+    private val TAG = "DetailsActivity"
+    private var movieId: Int? = null
+    private lateinit var castAdapter: CastAdapter
 
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    private lateinit var viewModel: DetailsViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         MyApplication.application.appComponent.inject(this)
+        movieId = intent.getIntExtra("id", 0)
+        setup()
+        setupObserversofMovies()
+        setObserversOfRev()
+        setObserversOfSimilar()
+        setObserversOfCast()
     }
+
+    private fun setup() {
+        viewModel = ViewModelProviders.of(this, viewModelFactory)[DetailsViewModel::class.java]
+
+    }
+
+    private fun setupObserversofMovies() {
+        movieId?.let { it ->
+            viewModel.getMovie(id = it).observe(this, {
+                it.let {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { movie -> setData(movie) }
+                        }
+                        Status.LOADING -> {
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                            Log.d(TAG, "setupObserversofMovies: ${it.message}")
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun setObserversOfRev() {
+        movieId?.let {
+            viewModel.getReviews(it).observe(this, {
+                it.let {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { it -> setReviews(it.results) }
+                        }
+                        Status.LOADING -> {
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                            Log.d(TAG, "setObserversOfRev: ${it.message}")
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun setObserversOfSimilar() {
+        movieId?.let {
+            viewModel.getSimilar(it).observe(this, {
+                it.let {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { it -> setSimilar(it.movies) }
+                        }
+                        Status.LOADING -> {
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                            Log.d(TAG, "setObserversOfSimilar:  ${it.message}")
+                        }
+                    }
+                }
+            })
+        }
+    }
+
+    private fun setObserversOfCast() {
+        movieId?.let {
+            viewModel.getCat(it).observe(this, {
+                it.let {
+                    when (it.status) {
+                        Status.SUCCESS -> {
+                            it.data?.let { it -> setCast(it.cast) }
+                        }
+                        Status.LOADING -> {
+                        }
+                        Status.ERROR -> {
+                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                            Log.d(TAG, "setObserversOfCast: ${it.message}")
+                        }
+                    }
+                }
+            })
+        }
+    }
+    private fun setData(movie: Movie) {
+        movie.let {
+            Glide.with(this)
+                .load("https://image.tmdb.org/t/p/w500${it.backdropPath}")
+                .into(poster)
+            name.text = it.originalTitle
+            rat.rating = (it.voteAverage?.div(2))!!
+            tagline.text = it.tagline
+        }
+    }
+
+    private fun setCast(list: List<Cast>) {
+        castAdapter = CastAdapter(this)
+        rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rv.adapter = castAdapter
+        castAdapter.submitList(list)
+    }
+    private fun setReviews(list: List<Reviews>) {}
+    private fun setSimilar(list: List<Movie>) {}
+
 }
