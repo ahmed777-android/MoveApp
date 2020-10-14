@@ -25,9 +25,8 @@ class MyApplication : Application() {
 
     private fun initAppComponent(app: MyApplication): ApplicationComponent {
         return DaggerApplicationComponent.builder()
-            .appModule(AppModule(app))
-            .networkingModule(NetworkingModule())
-            .databaseModule(DatabaseModule(app)
+            .appModule(AppModule(app)).networkingModule(NetworkingModule()).databaseModule(
+                DatabaseModule(app)
             )
             .build()
     }

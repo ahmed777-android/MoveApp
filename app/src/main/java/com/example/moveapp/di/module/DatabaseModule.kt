@@ -1,26 +1,27 @@
 package com.example.moveapp.di.module
 
-import android.content.Context
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.moveapp.networking.data.Movie
-import com.example.moveapp.room.MovieDatabase
+import android.app.Application
+import com.example.moveapp.database.MovieDao
+import com.example.moveapp.database.MovieDatabase
+import com.example.moveapp.networking.MovieApi
+import com.example.moveapp.networking.MovieRepository
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class DatabaseModule(private val context: Context) {
-    private val mDBName = "test_database.db"
-
-   @Singleton
-   @Provides
-   fun provideDatabase() :MovieDatabase = Room.databaseBuilder(context, MovieDatabase::class.java, mDBName).build()
+class DatabaseModule(private  val app:Application) {
 
     @Singleton
     @Provides
-    fun providesDao(db:MovieDatabase)=db.getMovieDao()
+    fun provideDatabase() = MovieDatabase.getDatabase(app)
 
+    @Singleton
+    @Provides
+    fun provideCharacterDao(db: MovieDatabase) = db.getMovieDao()
 
+    @Singleton
+    @Provides
+    fun provideRepository(remoteDataSource: MovieApi, localDataSource: MovieDao) =
+        MovieRepository(remoteDataSource, localDataSource)
 }

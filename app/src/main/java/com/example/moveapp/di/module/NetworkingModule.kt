@@ -1,8 +1,10 @@
 package com.example.moveapp.di.module
 
 import android.app.Activity
+import android.content.Context
 import com.example.moveapp.Api_Key
 import com.example.moveapp.BASE_URL
+import com.example.moveapp.database.MovieDatabase
 import com.example.moveapp.networking.MovieApi
 import com.example.moveapp.uti.ImageLoader
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory

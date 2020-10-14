@@ -18,19 +18,17 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/m_poster"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/m_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/m_poster" />
-
         <RatingBar
             android:id="@+id/rating"
             android:layout_width="wrap_content"
@@ -41,7 +39,13 @@
             android:numStars = "5"
             android:progressTint="#FFD300"
             />
-
-
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_baseline_favorite_24"
+            app:layout_constraintEnd_toEndOf="@id/m_poster"
+            app:layout_constraintTop_toTopOf="@id/m_poster"
+            android:padding="16dp"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

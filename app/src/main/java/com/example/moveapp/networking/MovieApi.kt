@@ -1,7 +1,10 @@
 package com.example.moveapp.networking
 
 
-import com.example.moveapp.networking.data.*
+import com.example.moveapp.networking.data.CastSchema
+import com.example.moveapp.networking.data.Movie
+import com.example.moveapp.networking.data.MoviesResponse
+import com.example.moveapp.networking.data.ReviewsListResponseSchema
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -19,12 +22,15 @@ interface MovieApi {
         @Path("movie_id") movie_id: Number
     ): Movie
 
-
-
-    @GET("movie/{movie_id}/similar")
+    @GET("movie/{movie_id}/recommendations")
     suspend fun getSimilarMovie(
         @Path("movie_id") movie_id: Number
-    ): SimilarSchema
+    ): MoviesResponse
+
+    @GET("movie/{movie_id}/reviews")
+    suspend fun getReviewsMovie(
+        @Path("movie_id") movie_id: Number
+    ): ReviewsListResponseSchema
 
     @GET("movie/{movie_id}/credits")
     suspend fun getCast(

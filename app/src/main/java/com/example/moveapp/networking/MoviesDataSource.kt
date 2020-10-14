@@ -2,7 +2,7 @@ package com.example.moveapp.networking
 
 import androidx.paging.PagingSource
 import com.example.moveapp.networking.data.Movie
-import com.example.moveapp.networking.data.MovieRepository
+import com.example.moveapp.networking.MovieRepository
 
 class MoviesDataSource( private val repository: MovieRepository) : PagingSource<Int, Movie>() {
 
