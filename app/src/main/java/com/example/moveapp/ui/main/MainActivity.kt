@@ -3,6 +3,7 @@ package com.example.moveapp.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -18,10 +19,11 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() ,PopularAdapter.MovieItemListener {
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MainViewModel
-    private  lateinit var  adapter:PopularAdapter
+    private lateinit var adapter: PopularAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -30,31 +32,36 @@ class MainActivity : AppCompatActivity() ,PopularAdapter.MovieItemListener {
         setupViewModel()
         setupObservers()
     }
-    private  fun  setUi(){
-        adapter = PopularAdapter(this,this)
-        rv.layoutManager=LinearLayoutManager(this)
-        rv.adapter=adapter
+
+    private fun setUi() {
+        adapter = PopularAdapter(this, this)
+        rv.layoutManager = LinearLayoutManager(this)
+        rv.adapter = adapter
         adapter.addLoadStateListener {
-            if (it.refresh==LoadState.Loading){
-                progress_bar.visibility=View.VISIBLE
-            }else{
-                progress_bar.visibility=View.INVISIBLE
+            if (it.refresh == LoadState.Loading) {
+                progress_bar.visibility = View.VISIBLE
+            } else {
+                progress_bar.visibility = View.INVISIBLE
             }
         }
     }
+
     private fun setupViewModel() {
         viewModel = ViewModelProviders.of(this, viewModelFactory)[MainViewModel::class.java]
     }
-    private fun setupObservers(){
+
+    private fun setupObservers() {
         lifecycleScope.launch {
-            viewModel.flow.collectLatest{
-                adapter.submitData(pagingData =it )
+            viewModel.flow.collectLatest {
+                Log.d("view123", "setupObservers: null")
+                adapter.submitData(pagingData = it)
             }
         }
     }
+
     override fun onItemClick(movieId: Int) {
-     val   intent=Intent(this,DetailsActivity::class.java)
-        intent.putExtra("id",movieId)
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("id", movieId)
         startActivity(intent)
     }
 }

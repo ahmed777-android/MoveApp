@@ -6,20 +6,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
-import com.bumptech.glide.load.engine.Resource
 import com.example.moveapp.networking.data.MovieRepository
-import com.example.moveapp.ui.adapter.MoviesDataSource
-import com.example.moveapp.uti.Resource.Companion.loading
+import com.example.moveapp.networking.MoviesDataSource
 import javax.inject.Inject
 
 
 class MainViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
-
-    val flow = Pager(PagingConfig(pageSize = 20, enablePlaceholders = false))
-    {
-
-        MoviesDataSource(repository)
-    }.flow.cachedIn(viewModelScope)
-
-
+    val flow = Pager(PagingConfig(pageSize = 20, enablePlaceholders = false)) { MoviesDataSource(repository) }.flow.cachedIn(viewModelScope)
 }

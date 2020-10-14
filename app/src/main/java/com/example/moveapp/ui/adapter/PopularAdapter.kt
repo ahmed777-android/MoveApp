@@ -48,10 +48,10 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
 
         fun bind(movie: Movie, context: Context) {
             with(movie) {
-                Glide.with(context).load("https://image.tmdb.org/t/p/w500$posterPath")
+                Glide.with(context).load("https://image.tmdb.org/t/p/w500$poster_path")
                     .into(poster)
                 name.text = title
-                rating.rating = (voteAverage?.div(2))!!
+                rating.rating = (vote_average?.div(2))!!
             }
         }
     }
