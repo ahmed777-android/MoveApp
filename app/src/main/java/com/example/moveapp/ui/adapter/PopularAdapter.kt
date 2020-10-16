@@ -27,6 +27,7 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
 
     override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
         val itemData: Movie? = getItem(position)
+        Log.d("TAG123", "onBindViewHolder: ${itemData?.title}")
         if (itemData != null) {
             holder.bind(itemData, context)
         }
@@ -51,7 +52,7 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
                 Glide.with(context).load("https://image.tmdb.org/t/p/w500$poster_path")
                     .into(poster)
                 name.text = title
-                rating.rating = (vote_average?.div(2))!!
+                rating.rating = (vote_average.div(2))
             }
         }
     }

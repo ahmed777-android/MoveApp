@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moveapp.R
 
-import com.example.moveapp.networking.data.Reviews
 import com.example.moveapp.networking.data.SimilarSchema
 import kotlinx.android.synthetic.main.item_review.view.*
 

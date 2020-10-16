@@ -24,16 +24,21 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: PopularAdapter
+    private val TAG = "MainActivity"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        Log.d(TAG, "onCreate: ")
         MyApplication.application.appComponent.inject(this)
         setUi()
         setupViewModel()
         setupObservers()
     }
 
+
     private fun setUi() {
+        Log.d(TAG, "setUi: ")
         adapter = PopularAdapter(this, this)
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
@@ -53,10 +58,11 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
     private fun setupObservers() {
         lifecycleScope.launch {
             viewModel.flow.collectLatest {
-                Log.d("view123", "setupObservers: null")
                 adapter.submitData(pagingData = it)
             }
         }
+        Log.d(TAG, "setupObservers:${  adapter.itemCount} ")
+
     }
 
     override fun onItemClick(movieId: Int) {

@@ -18,8 +18,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="m">
-        <activity android:name=".ui.details.DetailsActivity" />
+        tools:targetApi="q">
+        <activity android:name=".ui.details.DetailsActivity" >
+
+        </activity>
         <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

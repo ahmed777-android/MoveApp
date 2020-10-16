@@ -21,6 +21,7 @@ class CastAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: Cast = getItem(position)
+        //holder.itemView.context  ???????
         holder.bind(item, context)
     }
     inner class ViewHolder(V: View) : RecyclerView.ViewHolder(V) {
@@ -34,6 +35,7 @@ class CastAdapter(private val context: Context) :
             }
         }
     }
+
     class DiffCallback : DiffUtil.ItemCallback<Cast>() {
         override fun areItemsTheSame(oldItem: Cast, newItem: Cast) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Cast, newItem: Cast) =

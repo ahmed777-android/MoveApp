@@ -15,7 +15,7 @@ import com.example.moveapp.networking.data.Movie
 import com.example.moveapp.networking.data.SimilarSchema
 import com.example.moveapp.ui.adapter.CastAdapter
 import com.example.moveapp.ui.adapter.RecommendAdapter
-import com.example.moveapp.uti.Status
+import com.example.moveapp.utilit.Status
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
@@ -50,12 +50,13 @@ class DetailsActivity : AppCompatActivity() {
                     when (it.status) {
                         Status.SUCCESS -> {
                             it.data?.let { movie -> setData(movie) }
+                            Log.d(TAG, "setupObserversofMovies1: ${it.data?.backdrop_path}")
                         }
                         Status.LOADING -> {
                         }
                         Status.ERROR -> {
                             Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                            Log.d(TAG, "setupObserversofMovies: ${it.message}")
+                            Log.d(TAG, "setupObserversofMovies2: ${it.message}")
                         }
                     }
                 }
@@ -104,7 +105,7 @@ class DetailsActivity : AppCompatActivity() {
     private fun setData(movie: Movie) {
         movie.let {
             Glide.with(this)
-                .load("https://image.tmdb.org/t/p/w500${it.backdropPath}")
+                .load("https://image.tmdb.org/t/p/w500${it.poster_path}")
                 .into(poster)
             name.text = it.original_title
             rat.rating = (it.vote_average?.div(2))!!

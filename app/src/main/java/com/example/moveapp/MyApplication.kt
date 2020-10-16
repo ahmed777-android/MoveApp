@@ -8,13 +8,14 @@ import com.example.moveapp.di.module.DatabaseModule
 import com.example.moveapp.di.module.NetworkingModule
 
 class MyApplication : Application() {
-     lateinit var appComponent: ApplicationComponent
+    lateinit var appComponent: ApplicationComponent
 
     companion object {
         @get:Synchronized
         lateinit var application: MyApplication
             private set
     }
+
     override fun onCreate() {
         super.onCreate()
         application = this
@@ -25,11 +26,9 @@ class MyApplication : Application() {
 
     private fun initAppComponent(app: MyApplication): ApplicationComponent {
         return DaggerApplicationComponent.builder()
-            .appModule(AppModule(app)).networkingModule(NetworkingModule()).databaseModule(
-                DatabaseModule(app)
-            )
+            .appModule(AppModule(app))
+            .networkingModule(NetworkingModule())
+            .databaseModule(DatabaseModule(app))
             .build()
     }
-
-
 }

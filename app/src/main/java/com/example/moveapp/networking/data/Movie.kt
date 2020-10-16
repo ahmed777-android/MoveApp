@@ -1,9 +1,7 @@
 package com.example.moveapp.networking.data
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @Entity(tableName = "Movie")
@@ -12,7 +10,7 @@ data class Movie(
     @PrimaryKey
     val id: Int,
     val adult: Boolean,
-    val backdropPath: String,
+    val backdrop_path: String,
     val original_language: String,
     val original_title: String,
     val overview: String,

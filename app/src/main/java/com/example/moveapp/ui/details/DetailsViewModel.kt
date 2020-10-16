@@ -3,7 +3,7 @@ package com.example.moveapp.ui.details
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.moveapp.networking.MovieRepository
-import com.example.moveapp.uti.Resource
+import com.example.moveapp.utilit.Resource
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 import javax.inject.Inject

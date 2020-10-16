@@ -56,16 +56,15 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit2_version"
     implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
-    //okhttp
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
 
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
+
     // Room components
     def room_version = "2.2.5"
-
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
@@ -100,8 +99,9 @@ dependencies {
     //paging3
     def paging_version = "3.0.0-alpha07"
     implementation "androidx.paging:paging-runtime:$paging_version"
-
-
-
+    // alternatively - without Android dependencies for tests
+    testImplementation "androidx.paging:paging-common:$paging_version"
+    // optional - Guava ListenableFuture support
+    implementation "androidx.paging:paging-guava:$paging_version"
 
 }
