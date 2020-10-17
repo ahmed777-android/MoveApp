@@ -9,7 +9,5 @@ import javax.inject.Singleton
  class AppModule (private val movieApplication: Application) {
     @Provides
     @Singleton
-    fun provideContext()= movieApplication
-
-
+    fun provideApplication()= movieApplication
 }

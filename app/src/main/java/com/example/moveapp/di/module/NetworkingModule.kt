@@ -2,7 +2,9 @@ package com.example.moveapp.di.module
 
 import com.example.moveapp.Api_Key
 import com.example.moveapp.BASE_URL
+import com.example.moveapp.database.Dao
 import com.example.moveapp.networking.MovieApi
+import com.example.moveapp.networking.MovieRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -69,4 +71,10 @@ class NetworkingModule {
 
 
 
+}
+@Module
+class RepositoryModule {
+    @Provides
+    @Singleton
+    fun provideUserRepository(webservice: MovieApi, dao: Dao) = MovieRepository(webservice, dao)
 }

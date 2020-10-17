@@ -19,6 +19,4 @@ class MainViewModel @Inject constructor(private val repository: MovieRepository)
         Log.d("MainActivity", "pagger: ")
         MoviesDataSource(repository)
     }.flow.cachedIn(viewModelScope)
-
-
 }
