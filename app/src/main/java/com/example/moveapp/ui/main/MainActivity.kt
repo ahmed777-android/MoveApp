@@ -57,6 +57,9 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
 
     private fun setupObservers() {
         lifecycleScope.launch {
+            coroutineContext.let {
+                Log.d(TAG, "setupObservers:coroutineContext  ")
+            }
             viewModel.flow.collectLatest {
                 adapter.submitData(pagingData = it)
             }

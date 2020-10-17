@@ -4,7 +4,6 @@ import android.app.Application
 import com.example.moveapp.di.ApplicationComponent
 import com.example.moveapp.di.DaggerApplicationComponent
 import com.example.moveapp.di.module.AppModule
-import com.example.moveapp.di.module.DatabaseModule
 import com.example.moveapp.di.module.NetworkingModule
 
 class MyApplication : Application() {
@@ -28,7 +27,6 @@ class MyApplication : Application() {
         return DaggerApplicationComponent.builder()
             .appModule(AppModule(app))
             .networkingModule(NetworkingModule())
-            .databaseModule(DatabaseModule(app))
             .build()
     }
 }

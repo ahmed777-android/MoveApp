@@ -98,10 +98,10 @@ dependencies {
 
     //paging3
     def paging_version = "3.0.0-alpha07"
-    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
     // alternatively - without Android dependencies for tests
-    testImplementation "androidx.paging:paging-common:$paging_version"
+  //  testImplementation "androidx.paging:paging-common-ktx:$paging_version"
     // optional - Guava ListenableFuture support
-    implementation "androidx.paging:paging-guava:$paging_version"
+ //   implementation "androidx.paging:paging-guava:$paging_version"
 
 }

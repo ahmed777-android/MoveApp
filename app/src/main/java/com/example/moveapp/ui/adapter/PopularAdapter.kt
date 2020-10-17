@@ -14,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moveapp.R
 import com.example.moveapp.networking.data.Movie
+import com.example.moveapp.networking.data.PopularSchema
 import com.example.moveapp.ui.adapter.PopularAdapter.*
 import kotlinx.android.synthetic.main.item_view.view.*
 
 class PopularAdapter(private val context: Context, private val itemListener: MovieItemListener) :
-    PagingDataAdapter<Movie, PopularViewHolder>(DiffCallback()) {
+    PagingDataAdapter<PopularSchema.Result, PopularViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -26,7 +27,7 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
     }
 
     override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
-        val itemData: Movie? = getItem(position)
+        val itemData: PopularSchema.Result? = getItem(position)
         Log.d("TAG123", "onBindViewHolder: ${itemData?.title}")
         if (itemData != null) {
             holder.bind(itemData, context)
@@ -36,9 +37,9 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
         }
     }
 
-     class DiffCallback : DiffUtil.ItemCallback<Movie>() {
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie) =
+     class DiffCallback : DiffUtil.ItemCallback<PopularSchema.Result>() {
+        override fun areItemsTheSame(oldItem: PopularSchema.Result, newItem: PopularSchema.Result) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: PopularSchema.Result, newItem: PopularSchema.Result) =
             areItemsTheSame(oldItem, newItem)
     }
 
@@ -47,12 +48,12 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
         private val name: TextView = V.m_name
         private val rating: RatingBar = V.rating
 
-        fun bind(movie: Movie, context: Context) {
+        fun bind(movie: PopularSchema.Result, context: Context) {
             with(movie) {
-                Glide.with(context).load("https://image.tmdb.org/t/p/w500$poster_path")
+                Glide.with(context).load("https://image.tmdb.org/t/p/w500$posterPath")
                     .into(poster)
                 name.text = title
-                rating.rating = (vote_average.div(2))
+                rating.rating = (voteAverage?.div(2)?.toFloat()!!)
             }
         }
     }

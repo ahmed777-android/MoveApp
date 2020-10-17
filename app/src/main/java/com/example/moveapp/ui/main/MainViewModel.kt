@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val repository: MovieRepository) : ViewModel() {
 
-    val flow = Pager(PagingConfig(pageSize = 20, enablePlaceholders = false))
+    val flow = Pager(PagingConfig(pageSize = 20))
     {
         Log.d("MainActivity", "pagger: ")
         MoviesDataSource(repository)
