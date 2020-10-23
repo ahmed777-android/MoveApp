@@ -12,9 +12,12 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moveapp.MyApplication
 import com.example.moveapp.R
+import com.example.moveapp.ui.adapter.LoadStateAdapter
 import com.example.moveapp.ui.adapter.PopularAdapter
 import com.example.moveapp.ui.details.DetailsActivity
+import com.example.moveapp.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -34,6 +37,9 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
         setUi()
         setupViewModel()
         setupObservers()
+        fab.setOnClickListener {
+            startActivity( Intent(this,SearchActivity::class.java))
+        }
     }
 
 
@@ -41,7 +47,10 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
         Log.d(TAG, "setUi: ")
         adapter = PopularAdapter(this, this)
         rv.layoutManager = LinearLayoutManager(this)
-        rv.adapter = adapter
+         rv.adapter = adapter.withLoadStateHeaderAndFooter(
+                header = LoadStateAdapter{adapter.retry()} ,
+        footer = LoadStateAdapter{adapter.retry()}
+        )
         adapter.addLoadStateListener {
             if (it.refresh == LoadState.Loading) {
                 progress_bar.visibility = View.VISIBLE
@@ -64,7 +73,7 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
                 adapter.submitData(pagingData = it)
             }
         }
-        Log.d(TAG, "setupObservers:${  adapter.itemCount} ")
+        Log.d(TAG, "setupObservers:${adapter.itemCount} ")
 
     }
 
@@ -74,3 +83,4 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
         startActivity(intent)
     }
 }
+

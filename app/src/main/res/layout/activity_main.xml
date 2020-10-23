@@ -27,7 +27,15 @@
         app:layout_constraintBottom_toBottomOf="@id/rv"
         android:visibility="invisible"
         />
-
-
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:id="@+id/fab"
+        app:srcCompat="@drawable/ic_baseline_search_24"
+        app:fabSize="normal"
+        app:backgroundTint="@android:color/background_dark"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

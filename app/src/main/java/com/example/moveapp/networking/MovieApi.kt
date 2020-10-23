@@ -12,7 +12,7 @@ interface MovieApi {
     @GET("movie/popular")
     suspend fun getPopularMovie(
         @Query("page") page: Int? = null
-    ): PopularSchema
+    ): MovieResult
 
     @GET("movie/{movie_id}")
     suspend fun getMovieById(
@@ -36,7 +36,7 @@ interface MovieApi {
 
 
     @GET("search/movie")
-    suspend fun fetchMovieByQueryAsync(@Query("query") query: String): PopularSchema
+    suspend fun searchResult(@Query("query") query: String  ,@Query("page") page: Int?= null): MovieSearchResponse
 }
 
 

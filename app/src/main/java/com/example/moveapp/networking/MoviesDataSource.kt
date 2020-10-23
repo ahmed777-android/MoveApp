@@ -2,15 +2,14 @@ package com.example.moveapp.networking
 
 import android.util.Log
 import androidx.paging.PagingSource
-import com.example.moveapp.networking.data.Movie
-import com.example.moveapp.networking.data.PopularSchema
+import com.example.moveapp.networking.data.MovieResult
 
 class MoviesDataSource(private val repository: MovieRepository) :
-    PagingSource<Int, PopularSchema.Result>() {
+    PagingSource<Int, MovieResult.ResultPopuler>() {
 
     private val TAG = "MainActivity MoviesDataSource"
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PopularSchema.Result> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResult.ResultPopuler> {
         return try {
 
             val nextPage = params.key ?: 1

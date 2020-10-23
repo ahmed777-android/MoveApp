@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.moveapp.ui.details.DetailsViewModel
 import com.example.moveapp.ui.main.MainViewModel
+import com.example.moveapp.ui.search.SearchActivity
+import com.example.moveapp.ui.search.SearchViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -42,4 +44,10 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(DetailsViewModel::class)
     abstract fun DetailsViewModel(viewModel: DetailsViewModel): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun SearchViewModel(viewModel: SearchViewModel): ViewModel
 }

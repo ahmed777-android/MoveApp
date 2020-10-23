@@ -5,16 +5,16 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-data class PopularSchema(
+data class MovieResult(
     val page: Int?,
-    val results: List<Result>,
+    val results: List<ResultPopuler>,
     @Json(name = "total_pages")
     val totalPages: Int?,
     @Json(name = "total_results")
     val totalResults: Int?
 ) {
     @JsonClass(generateAdapter = true)
-    data class Result(
+    data class ResultPopuler(
         val adult: Boolean?,
         @Json(name = "backdrop_path")
         val backdropPath: String?,

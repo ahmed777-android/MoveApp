@@ -13,13 +13,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moveapp.R
-import com.example.moveapp.networking.data.Movie
-import com.example.moveapp.networking.data.PopularSchema
+import com.example.moveapp.networking.data.MovieResult
 import com.example.moveapp.ui.adapter.PopularAdapter.*
 import kotlinx.android.synthetic.main.item_view.view.*
 
 class PopularAdapter(private val context: Context, private val itemListener: MovieItemListener) :
-    PagingDataAdapter<PopularSchema.Result, PopularViewHolder>(DiffCallback()) {
+    PagingDataAdapter<MovieResult.ResultPopuler, PopularViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -27,7 +26,7 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
     }
 
     override fun onBindViewHolder(holder: PopularViewHolder, position: Int) {
-        val itemData: PopularSchema.Result? = getItem(position)
+        val itemData: MovieResult.ResultPopuler? = getItem(position)
         Log.d("TAG123", "onBindViewHolder: ${itemData?.title}")
         if (itemData != null) {
             holder.bind(itemData, context)
@@ -37,9 +36,9 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
         }
     }
 
-     class DiffCallback : DiffUtil.ItemCallback<PopularSchema.Result>() {
-        override fun areItemsTheSame(oldItem: PopularSchema.Result, newItem: PopularSchema.Result) = oldItem.id == newItem.id
-        override fun areContentsTheSame(oldItem: PopularSchema.Result, newItem: PopularSchema.Result) =
+     class DiffCallback : DiffUtil.ItemCallback<MovieResult.ResultPopuler>() {
+        override fun areItemsTheSame(oldItem: MovieResult.ResultPopuler, newItem: MovieResult.ResultPopuler) = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: MovieResult.ResultPopuler, newItem: MovieResult.ResultPopuler) =
             areItemsTheSame(oldItem, newItem)
     }
 
@@ -48,7 +47,7 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
         private val name: TextView = V.m_name
         private val rating: RatingBar = V.rating
 
-        fun bind(movie: PopularSchema.Result, context: Context) {
+        fun bind(movie: MovieResult.ResultPopuler, context: Context) {
             with(movie) {
                 Glide.with(context).load("https://image.tmdb.org/t/p/w500$posterPath")
                     .into(poster)

@@ -2,7 +2,6 @@ package com.example.moveapp.di.module
 
 import com.example.moveapp.Api_Key
 import com.example.moveapp.BASE_URL
-import com.example.moveapp.database.Dao
 import com.example.moveapp.networking.MovieApi
 import com.example.moveapp.networking.MovieRepository
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -76,5 +75,5 @@ class NetworkingModule {
 class RepositoryModule {
     @Provides
     @Singleton
-    fun provideUserRepository(webservice: MovieApi, dao: Dao) = MovieRepository(webservice, dao)
+    fun provideUserRepository(webservice: MovieApi) = MovieRepository(webservice)
 }
