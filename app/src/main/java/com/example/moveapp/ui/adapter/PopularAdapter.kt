@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.RatingBar
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -45,14 +44,14 @@ class PopularAdapter(private val context: Context, private val itemListener: Mov
     inner class PopularViewHolder(V: View) : RecyclerView.ViewHolder(V) {
         private val poster: ImageView = V.m_poster
         private val name: TextView = V.m_name
-        private val rating: RatingBar = V.rating
+       // private val rating: RatingBar = V.rating
 
         fun bind(movie: MovieResult.ResultPopuler, context: Context) {
             with(movie) {
                 Glide.with(context).load("https://image.tmdb.org/t/p/w500$posterPath")
                     .into(poster)
-                name.text = title
-                rating.rating = (voteAverage?.div(2)?.toFloat()!!)
+                name.text = movie.title
+              //  rating.rating = (voteAverage?.div(2)?.toFloat()!!)
             }
         }
     }

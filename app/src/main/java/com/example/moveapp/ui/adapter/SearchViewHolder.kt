@@ -19,14 +19,14 @@ class SearchViewHolder(private val view:View) : RecyclerView.ViewHolder(view) {
     private var result: ResultSearch? = null
     private val poster: ImageView = view.m_poster
     private val name: TextView = view.m_name
-    private val rating: RatingBar = view.rating
+   // private val rating: RatingBar = view.rating
 
     fun bind(item:ResultSearch?){
         if (item!=null){
 
             this.result = item
             name.text=item.title
-            rating.rating = (item.voteAverage?.div(2)?.toFloat()!!)
+       //    rating.rating = (item.voteAverage?.div(2)?.toFloat()!!)
             Glide.with(view.context).load("https://image.tmdb.org/t/p/w500${item.posterPath}")
                 .into(poster)
         }

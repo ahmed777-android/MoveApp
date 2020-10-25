@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity(), PopularAdapter.MovieItemListener {
     lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: PopularAdapter
-    private val TAG = "MainActivity"
+    private val TAG :String= "MainActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

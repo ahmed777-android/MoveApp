@@ -1,5 +1,6 @@
 package com.example.moveapp.ui.details
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,7 +20,7 @@ import com.example.moveapp.utilit.Status
 import kotlinx.android.synthetic.main.activity_details.*
 import javax.inject.Inject
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity() ,RecommendAdapter.MovieItemListener{
     private val TAG = "DetailsActivity"
     private var movieId: Int? = null
     private lateinit var castAdapter: CastAdapter
@@ -108,8 +109,9 @@ class DetailsActivity : AppCompatActivity() {
                 .load("https://image.tmdb.org/t/p/w500${it.poster_path}")
                 .into(poster)
             name.text = it.original_title
-            rat.rating = (it.vote_average?.div(2))!!
+            rat.rating = (it.vote_average?.div(2))
             tagline.text = it.tagline
+            description.text=it.overview
         }
     }
     private fun setCast(list: List<Cast>) {
@@ -120,10 +122,18 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private fun setSimilar(list: List<SimilarSchema.Result>) {
-        recommendAdapter = RecommendAdapter(this)
+        recommendAdapter = RecommendAdapter(this,this)
         rv_comment.layoutManager=LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rv_comment.adapter=recommendAdapter
         recommendAdapter.submitList(list)
     }
+
+    override fun onItemClick(movieId: Int) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("id", movieId)
+        startActivity(intent)
+        finish()
+     }
+
 
 }

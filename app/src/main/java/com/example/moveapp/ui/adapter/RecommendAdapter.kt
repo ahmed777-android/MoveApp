@@ -14,7 +14,7 @@ import com.example.moveapp.R
 import com.example.moveapp.networking.data.SimilarSchema
 import kotlinx.android.synthetic.main.item_review.view.*
 
-class RecommendAdapter(private val context:Context) :
+class RecommendAdapter(private val context:Context,private val listener:MovieItemListener) :
     ListAdapter<SimilarSchema.Result, RecommendAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,6 +25,9 @@ class RecommendAdapter(private val context:Context) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: SimilarSchema.Result = getItem(position)
         holder.bind(item,context)
+        holder.itemView.setOnClickListener {
+            listener.onItemClick(item.id)
+        }
     }
 
     inner class ViewHolder(V: View) : RecyclerView.ViewHolder(V) {
@@ -46,5 +49,8 @@ class RecommendAdapter(private val context:Context) :
         override fun areItemsTheSame(oldItem: SimilarSchema.Result, newItem: SimilarSchema.Result) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: SimilarSchema.Result, newItem: SimilarSchema.Result) =
             areItemsTheSame(oldItem, newItem)
+    }
+    interface MovieItemListener {
+        fun onItemClick(movieId: Int)
     }
 }
